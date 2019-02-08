@@ -18,13 +18,14 @@ using Mono::MonoFunc;
 
 
 namespace MonoDumper {
+
     extern bool IsReady;
 
     void Check_AssemblyCSharp(MonoAssembly *assembly, void *user_data);
 
     void Dump_Foreach_Assembly(MonoAssembly *assembly, void *user_data);
 
-    void Dump_DLLs();
+    void Dump_DLLs(const char *dumpFolder);
 };
 
 #endif /* DUMPER_H */

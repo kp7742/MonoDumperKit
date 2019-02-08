@@ -10,7 +10,7 @@
 #include <dlfcn.h>
 #include <string>
 #include "Logger.h"
-
+#include "Utils.h"
 
 namespace Mono {
 
@@ -44,10 +44,7 @@ namespace Mono {
     } MonoImageOpenStatus;
 
 
-    extern MonoImage *(*mono_assembly_get_image)(MonoAssembly *);
-    extern const char *(*mono_image_get_name)(MonoImage *);
     extern void (*mono_assembly_foreach)(MonoFunc, void *);
-
 
     void initialize_exports();
 };

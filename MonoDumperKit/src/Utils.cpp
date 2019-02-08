@@ -7,16 +7,15 @@
 #include "Utils.h"
 
 
-ProcMap getLibraryMap(pid_t pid, const char *libraryName) {
-    ProcMap retMap = {0};
-    char mapFile[256] = {0}, line[512] = {0};
+ProcMap getLibraryMap(const char *libraryName) {
+    ProcMap retMap;
+    char line[512] = {0};
 
-    snprintf(mapFile, sizeof(mapFile), "/proc/%d/maps", pid);
-    FILE *fp = fopen(mapFile, "rt");
+    FILE *fp = fopen("/proc/self/maps", "rt");
     if (fp != NULL) {
         while (fgets(line, sizeof(line), fp)) {
             if (strstr(line, libraryName)) {
-                char tmpPerms[5] = {0}, tmpDev[12] = {0}, tmpPathname[666] = {0};
+                char tmpPerms[5] = {}, tmpDev[12] = {}, tmpPathname[666] = {};
                 // parse a line in maps file
                 // (format) startAddress-endAddress perms offset dev inode pathname
                 sscanf(line, "%llx-%llx %s %ld %s %d %s",
@@ -34,4 +33,19 @@ ProcMap getLibraryMap(pid_t pid, const char *libraryName) {
         fclose(fp);
     }
     return retMap;
+}
+
+
+std::string getProcName() {
+    std::string ret;
+    char cmdline[256] = {0};
+    FILE *fp;
+
+    fp = fopen("/proc/self/cmdline", "r");
+    if (fp) {
+        fgets(cmdline, sizeof(cmdline), fp);
+        fclose(fp);
+        ret = cmdline;
+    }
+    return ret;
 }

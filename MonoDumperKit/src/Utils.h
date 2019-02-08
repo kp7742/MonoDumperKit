@@ -9,11 +9,12 @@
 
 #include "Logger.h"
 #include <dlfcn.h>
-#include <string>
+#include <string.h>
 #include <dirent.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>
+#include <string>
 
 
 
@@ -31,6 +32,7 @@ struct ProcMap {
 };
 
 
-ProcMap getLibraryMap(pid_t pid, const char *libraryName);
+ProcMap getLibraryMap(const char *libraryName);
+std::string getProcName();
 
 #endif //UTILS_H
