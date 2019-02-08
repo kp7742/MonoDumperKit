@@ -9,8 +9,8 @@
 bool MonoDumper::IsReady = false;
 
 
-#define GET_ASSEMBLY_IMAGE(X) *(MonoImage **) ((uintptr_t) assembly + 0x40)
-#define GET_IMAGE_NAME(X) *(const char **)((uintptr_t)image + 0x18)
+#define GET_ASSEMBLY_IMAGE(X) *(MonoImage **) ((uintptr_t)X + 0x40)
+#define GET_IMAGE_NAME(X) *(const char **)((uintptr_t)X + 0x18)
 
 
 void MonoDumper::Check_AssemblyCSharp(MonoAssembly *assembly, void *user_data) {
